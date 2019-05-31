@@ -328,7 +328,7 @@ pagamento, de tal modo que o pagador possa posteriormente provar a execução be
    * _Relacionado: node recebedor_
 
 * *Peer emissor*:
-   * O *node* que envia uma mensagem *peer*.
+   * O *peer* que envia uma mensagem.
    * _Categoria: peer_
    * _Relacionado: peer recebedor_.
 
