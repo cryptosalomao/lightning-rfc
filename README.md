@@ -20,7 +20,7 @@ Sendo assim, este repositório apenas reflete a tradução das especificações 
 protocolos da Lightning Network, e nenhuma das alterações de protocolo propostas
 aqui via PR serão refletidas no repositório oficial.
 
-Discussão disponível na [lighting-dev mailing list](https://lists.linuxfoundation.org/mailman/listinfo/lightning-dev).
+A discussão oficial sobre o protocolo está disponível na [lighting-dev mailing list](https://lists.linuxfoundation.org/mailman/listinfo/lightning-dev).
 
 ### [Comece pela tabela de conteúdos](00-introduction.md)
 
