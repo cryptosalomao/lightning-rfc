@@ -1,14 +1,26 @@
-# [Lightning Network](https://lightning.network) In-Progress Specifications
+# [Lightning Network](https://lightning.network) In-Progress Specification
 
-The specifications are currently a work-in-progress and currently being
-drafted.
+Este repositório traz as traduções das especificações da Lightning Network para
+o português.
 
-Pull requests and comments welcome, seeking input from community stakeholders.
+O objetivo deste projeto de tradução é trazer uma base de informações acessível,
+visando facilitar o entendimento do funcionamento dos protocolos que fazem parte
+do núcleo da Lightning Network.
 
-Discussion available on the [lighting-dev mailing list](https://lists.linuxfoundation.org/mailman/listinfo/lightning-dev).
+Contribuições e melhorias são aceitas.
 
-### [Start here for Table of Contents](00-introduction.md)
+## Como contribuir
+
+As especificações são atualmente um trabalho em progresso, e estão atualmente
+sendo elaboradas.
+
+Pull requests e comentários são bem vindos, buscando contribuição de envolvidos
+na comunidade.
+
+Discussão disponível na [lighting-dev mailing list](https://lists.linuxfoundation.org/mailman/listinfo/lightning-dev).
+
+### [Comece pela tabela de conteúdos](00-introduction.md)
 
 ![Creative Commons License](https://i.creativecommons.org/l/by/4.0/88x31.png "License CC-BY")
 <br>
-This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+Este trabalho é licenciado sob a [Licença Creative Commons Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/).
