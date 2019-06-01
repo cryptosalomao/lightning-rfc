@@ -24,7 +24,7 @@ Esta é a versão 0 do protocolo geral, conforme definida no repositório origin
 7. [BOLT #7](07-routing-gossip.md): Protocolo P2P e Descoberta de Canais
 8. [BOLT #8](08-transport.md): Transporte Criptografado e Autenticado
 9. [BOLT #9](09-features.md): Flags de Propriedades
-10. [BOLT #10](10-dns-bootstrap.md): DNS Bootstrap and Assisted Node Location
+10. [BOLT #10](10-dns-bootstrap.md): DNS Bootstrap e Localização de Nodes Assistida
 11. [BOLT #11](11-payment-encoding.md): Protocolo de Cobrança para Pagamentos Lightning
 
 ## The Spark: Uma pequena introdução à Lightning
@@ -104,7 +104,7 @@ pagamento, de tal modo que o pagador possa posteriormente provar a execução be
 
 ## Glossário e Termos
 
-* *Anúncio (Announcement)*:
+* *Announcement*:
    * Uma mensagem enviada entre *peers* com o objetivo de auxiliar o descobrimento de novos *canais*
    e/ou *nodes*.
 
@@ -143,20 +143,12 @@ pagamento, de tal modo que o pagador possa posteriormente provar a execução be
 * *Chave Privada de Revogação*:
    * Toda *transação de execução (commitment transaction)* possui uma chave privada
    de revogação única, que permite ao outro *peer* gastar todos os *outputs* imediatamente.
-   Revelar esta chave privada é a forma de revogar uma *transação de execução
-   (commitment transaction)* propagada unilateralmente. Para auxiliar na revogação,
+   Revelar esta chave privada é a forma de revogar uma *transação de execução (commitment transaction)* 
+   propagada unilateralmente. Para auxiliar na revogação,
    cada *output* da *transação de execução* referencia uma *chave pública de revogação*.
 
    * _Pertencente a: transação de execução (commitment transaction)_
    * _Origem: per-commitment secret_
-
-   * Every *commitment transaction* has a unique commitment revocation private-key
-    value that allows the other *peer* to spend all outputs
-    immediately: revealing this key is how old commitment
-    transactions are revoked. To support revocation, each output of the
-    commitment transaction refers to the commitment revocation public key.
-   * _See container: commitment transaction_
-   * _See originator: per-commitment secret_
 
 * *Transação de Execução (Commitment transaction)*:
    * Uma transação que tem uma *transação de depósito (funding transaction)* como
@@ -220,14 +212,9 @@ pagamento, de tal modo que o pagador possa posteriormente provar a execução be
    * Fechamento cooperativo de um canal, efetuado por meio da transmissão do gasto de
    um pagamento não condicional da *transação de depósito (funding transaction)*, com um
    *output* para cada *peer* do canal, a menos que um dos *outputs* seja pequeno demais,
-   logo, ignorado, ou mesmo quando um dos *peers* do canal recebeu todos os fundos durante
+   logo, deve ser ignorado, ou mesmo quando um dos *peers* do canal recebeu todos os fundos durante
    as transações intermediárias daquele canal.
-   * _Relacionado: ,fechamento unilateral_
-
-   * A cooperative close of a *channel*, accomplished by broadcasting an unconditional
-    spend of the *funding transaction* with an output to each *peer*
-    (unless one output is too small, and thus is not included).
-   * _See related: revoked transaction close, unilateral close_
+   * _Relacionado: Fechamento por Transação Revogada (revoked transaction close), Fechamento Unilateral_
 
 * *Node*:
    * Um computador ou qualquer outro dispositivo que faça parte da Lightning Network.
@@ -235,20 +222,12 @@ pagamento, de tal modo que o pagador possa posteriormente provar a execução be
    * _Tipos de node: node final, hop, node de origem, node de processamento, node de recebimento,
    node de envio_
 
-   * A computer or other device that is part of the Lightning network.
-   * _See related: peers_
-   * _See types: final node, hop, origin node, processing node, receiving node, sending node_
-
 * *Node de origem*:
    * O _node_ que origina um pacote que roteia um pagamento através de alguns _hops_ para um
    _node final_. É também o primeiro _peer de envio (sending peer)_ em uma sequência de _peers_
-   de um pagamento roteado.
+   de um pagamento roteado entre canais.
    * _Categoria: node_
    * _Relacionado: node final, node de processamento_
-
-   * The _node_ that originates a packet that will route a payment through some number of _hops_ to a _final node_. It is also the first _sending peer_ in a chain.
-   * _See category: node_
-   * _See related: final node, processing node_
 
 * *Outpoint*:
   * Um hash de transação e índice de saída que identifica uma saída de transação não gasta (UTXO).
@@ -307,20 +286,24 @@ pagamento, de tal modo que o pagador possa posteriormente provar a execução be
    * _Categoria: peer_
    * _Relacionado: peer emissor_
 
-* *Revoked commitment transaction*:
-   * An old *commitment transaction* that has been revoked because a new commitment transaction has been negotiated.
-   * _See category: commitment transaction_
+* *Transação de Execução Revogada (Revoked commitment transaction)*:
+   * Uma *transação de execução (commitment transaction)* que fora revogada após a criação 
+   de uma nova *transação de execução* depois de uma nova negociação de mudança de estado 
+   (transferência de valores) entre *peers* de um canal.
+   * _Categoria: transação de execução (commitment transaction)_
 
-* *Revoked transaction close*:
-   * An invalid close of a *channel*, accomplished by broadcasting a *revoked
-    commitment transaction*. Since the other *peer* knows the
-    *commitment revocation secret key*, it can create a *penalty transaction*.
-   * _See related: mutual close, unilateral close_
+* *Fechamento por Transação Revogada (Revoked transaction close)*:
+   * Fechamento inválido de um *canal*, efetuado por meio da transmissão de uma 
+   *transação de execução revogada (revoked commitment transaction)*. Tendo em vista
+   que a contraparte do canal fechado por uma *transação de execução revogada* possui
+   a *chave privada de revogação* para anular esta transação, este pode então usar tal 
+   chave privada para aplicar uma penalidade através da *transação de penalidade (penalty transaction)*.
+   * _Relacionado: Fechamento Mútuo, Fechamento Unilateral_
 
-* *Rota*: A path across the Lightning Network that enables a payment
-    from an *origin node* to a *final node* across one or more
-    *hops*.
-  * _See related: channel_
+* *Rota*: Caminho que um pagamento percorre através da Lightning Network 
+que permite a transferência de valores de *node de origem* a um *node final* 
+através de um ou mais *hops* intermediários.
+  * _Relacionado: canal_
 
 * *Node emissor*:
    * O *node* que envia uma mensagem.
